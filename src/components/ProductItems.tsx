@@ -46,7 +46,7 @@ function ProductItems({
       <h4 className="text-sm mt-2">{name}</h4>
       <div className="flex justify-between items-end text-sm h-full">
         <span>$ {price.toFixed(2)}</span>
-        <button className="bg-cyan-800 px-4 py-1 rounded-sm hover:bg-cyan-500 ease-in-out duration-500">
+        <button onClick={() => addToCart(id)} className="bg-cyan-800 px-4 py-1 rounded-sm hover:bg-cyan-500 ease-in-out duration-500">
           Add +
         </button>
       </div>

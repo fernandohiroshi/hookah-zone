@@ -26,12 +26,35 @@ export default function Home() {
 
   useEffect(() => {
     setProducts(dataProducts);
+    const storadCart = localStorage.getItem("cart");
+    if (storadCart) {
+      setCart(JSON.parse(storadCart));
+    }
   }, []);
 
-  const addToCart = () => {};
+  const addToCart = (id: number) => {
+    const product = products.find((prod: Product) => prod.id === id);
+    if (!product) return;
+
+    const existingProduct = cart.find((item) => item.id === id);
+
+    let updateCart: CartItem[];
+
+    if (existingProduct) {
+      updateCart = cart.map((item) =>
+        item.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      updateCart = [...cart, { ...product, quantity: 1 }];
+    }
+
+    setCart(updateCart);
+    localStorage.setItem("cart", JSON.stringify(updateCart));
+  };
 
   return (
     <>
+      {/* HEADER */}
       <header className="sticky top-0 bg-slate-950/5 backdrop-blur-2xl z-50">
         <div className="max-w-4xl mx-auto flex justify-between px-4 py-6 ">
           <Link href="#" className="text-lg">
@@ -44,12 +67,17 @@ export default function Home() {
             <Link href="#">
               <BiLogoInstagram size={24} />
             </Link>
-            <CartButton />
+            <CartButton itemCount={cart.length} />
           </div>
         </div>
       </header>
+
+      {/* MAIN */}
       <main className="max-w-4xl mx-auto w-full min-h-screen">
+        {/* HERO */}
         <Hero />
+
+        {/* PRODUCTS LIST */}
         <section className="px-4 py-8">
           <h3 className="text-xl mb-8">Produtos:</h3>
           <div className="grid grid-cols-12 gap-3 grid-flow-dense">
@@ -62,7 +90,7 @@ export default function Home() {
                 image={product.image}
                 price={product.price}
                 addToCart={addToCart}
-                delay={index} // Incremental delay for each item
+                delay={index}
               />
             ))}
           </div>

@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { GiShoppingCart } from "react-icons/gi";
 
-const CartButton = () => {
+type ItemCountProps = {
+  itemCount: number;
+};
+
+const CartButton = ({ itemCount }: ItemCountProps) => {
   return (
     <Link href="#" className="flex items-start">
       <GiShoppingCart size={24} />
-      <span className="text-xs">0</span>
+      <span className="text-xs">{itemCount}</span>
     </Link>
   );
 };
