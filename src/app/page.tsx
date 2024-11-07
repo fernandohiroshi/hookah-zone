@@ -79,7 +79,7 @@ export default function Home() {
     localStorage.setItem("cart", JSON.stringify(updateCart));
 
     // DISPLAY TOAST AFTER ADDING PRODUCT
-    toast.success(`${product.name} has been added to the cart!`);
+    toast.success(`${product.name} Producto añadido`);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +104,7 @@ export default function Home() {
             href="#"
             className="text-sm md:text-lg hover:text-cyan-500 ease-in-out duration-300"
           >
-            HOKKAH ZONE
+            HOOKAH ZONE
           </Link>
           <div className="flex items-center gap-4">
             <Link href="#">
@@ -170,7 +170,7 @@ export default function Home() {
                   onChange={() => setSelectedGroup("")}
                   className="accent-cyan-500"
                 />
-                All
+                Todos
               </label>
             </div>
           </div>

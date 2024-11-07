@@ -186,7 +186,7 @@ function CartItems() {
                 <input
                   type="text"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
-                  placeholder="Nome Completo"
+                  placeholder="Nombre Completo"
                   value={fields.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   onBlur={() => handleBlur("name")}
@@ -198,7 +198,7 @@ function CartItems() {
                 <input
                   type="tel"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
-                  placeholder="Telefone (WhatsApp)"
+                  placeholder="Teléfono (WhatsApp)"
                   value={fields.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
                   onBlur={() => handleBlur("phone")}
@@ -210,7 +210,7 @@ function CartItems() {
                 <input
                   type="text"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2 "
-                  placeholder="Endereço"
+                  placeholder="Dirección"
                   value={fields.adress}
                   onChange={(e) => handleChange("adress", e.target.value)}
                   onBlur={() => handleBlur("adress")}
