@@ -113,11 +113,11 @@ function CartItems() {
     const orderMsg = cart
       .map((item) => `${item.quantity} ${item.name},`)
       .join("\n");
-    const fieldsMsg = `Nome: ${fields.name}\nTelefone: ${fields.phone}\nEndereço: ${fields.adress}`;
+    const fieldsMsg = `Contacto:\n\nTeléfono: ${fields.phone}\nDirección: ${fields.adress}`;
 
-    const customerMsg = `Pedidos:\n\n${orderMsg}\n\nValor Total: $${total.toFixed(
-      2
-    )}\n\n${fieldsMsg}`;
+    const customerMsg = `Pedidos de ${
+      fields.name
+    }:\n\n${orderMsg}\n\nValor Total: $${total.toFixed(2)}\n\n${fieldsMsg}`;
 
     // OPEN WHATSAPP WITH ORDER DETAILS
     const whatsappUrl = `https://wa.me/45988311915?text=${encodeURIComponent(
