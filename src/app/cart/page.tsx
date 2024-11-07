@@ -13,10 +13,7 @@ export default function Cart() {
             title="volver al inicio"
             className="text-xl flex items-center gap-2 hover:text-cyan-500 ease-in-out duration-500"
           >
-            <BiSolidLeftArrowCircle
-              size={24}
-              className="animate-pulse"
-            />
+            <BiSolidLeftArrowCircle size={24} className="animate-pulse" />
             Volver
           </Link>
 

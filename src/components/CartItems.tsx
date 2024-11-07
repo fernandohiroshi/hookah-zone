@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
+import { toast } from "react-hot-toast";
 import { BsCartX } from "react-icons/bs";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 
 function CartItems() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // STATE HOOKS FOR CART, TOTAL, FORM FIELDS, AND ERRORS
   const [cart, setCart] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [fields, setFields] = useState({
@@ -15,8 +15,14 @@ function CartItems() {
     phone: "",
     adress: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    phone: "",
+    adress: "",
+  });
 
   useEffect(() => {
+    // RETRIEVE CART FROM LOCAL STORAGE IF EXISTS
     const storageCart = localStorage.getItem("cart");
     if (storageCart) {
       setCart(JSON.parse(storageCart));
@@ -24,6 +30,7 @@ function CartItems() {
   }, []);
 
   useEffect(() => {
+    // CALCULATE THE TOTAL PRICE BASED ON CART ITEMS
     const newTotal = cart.reduce(
       (c, item) => c + item.price * item.quantity,
       0
@@ -32,6 +39,7 @@ function CartItems() {
   }, [cart]);
 
   const handleIncrement = (id: number) => {
+    // INCREMENT ITEM QUANTITY IN CART
     const updateCart = cart.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
@@ -40,6 +48,7 @@ function CartItems() {
   };
 
   const handleDecrement = (id: number) => {
+    // DECREMENT ITEM QUANTITY OR REMOVE ITEM FROM CART IF QUANTITY IS 1
     const existingProduct = cart.find((item) => item.id === id);
     if (existingProduct && existingProduct.quantity > 1) {
       const updateCart = cart.map((item) =>
@@ -52,6 +61,68 @@ function CartItems() {
       setCart(updateCart);
       localStorage.setItem("cart", JSON.stringify(updateCart));
     }
+  };
+
+  const validateFields = (
+    field: "name" | "phone" | "adress",
+    value: string
+  ) => {
+    // VALIDATE FORM FIELDS (NAME, PHONE, AND ADDRESS)
+    switch (field) {
+      case "name":
+        return value ? "" : "Por favor, ingrese su nombre completo.";
+      case "phone":
+        const phoneRegex = /^[0-9]{9,15}$/;
+        return phoneRegex.test(value)
+          ? ""
+          : "Ingrese un número de teléfono válido.";
+      case "adress":
+        return value ? "" : "Por favor, ingrese su dirección.";
+      default:
+        return "";
+    }
+  };
+
+  const handleChange = (field: "name" | "phone" | "adress", value: string) => {
+    // HANDLE INPUT CHANGE AND VALIDATION
+    setFields({ ...fields, [field]: value });
+    setErrors({ ...errors, [field]: validateFields(field, value) });
+  };
+
+  const handleBlur = (field: "name" | "phone" | "adress") => {
+    // VALIDATE FIELD ON BLUR
+    setErrors({ ...errors, [field]: validateFields(field, fields[field]) });
+  };
+
+  const handleWhatsappOrderApp = () => {
+    // VALIDATE FORM AND GENERATE WHATSAPP ORDER MESSAGE
+    const newErrors = {
+      name: validateFields("name", fields.name),
+      phone: validateFields("phone", fields.phone),
+      adress: validateFields("adress", fields.adress),
+    };
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some((error) => error)) {
+      toast.error("Por favor, complete todos los datos correctamente.");
+      return;
+    }
+
+    const orderMsg = cart
+      .map((item) => `${item.quantity} ${item.name},`)
+      .join("\n");
+    const fieldsMsg = `Nome: ${fields.name}\nTelefone: ${fields.phone}\nEndereço: ${fields.adress}`;
+
+    const customerMsg = `Pedidos:\n\n${orderMsg}\n\nValor Total: $${total.toFixed(
+      2
+    )}\n\n${fieldsMsg}`;
+
+    // OPEN WHATSAPP WITH ORDER DETAILS
+    const whatsappUrl = `https://wa.me/45988311915?text=${encodeURIComponent(
+      customerMsg
+    )}`;
+    window.location.href = whatsappUrl;
   };
 
   return (
@@ -91,8 +162,6 @@ function CartItems() {
                   </div>
                 </section>
 
-                {/* QUANTITY BUTTONS */}
-
                 <div className="flex items-center gap-2">
                   <button
                     className="text-teal-400"
@@ -110,47 +179,52 @@ function CartItems() {
               </div>
             ))}
 
-            {/* FORM */}
             <section className="my-16 bg-slate-800 rounded-xl p-4">
-              <h2 className="text-xl mb-8">Datos de Entrega</h2>
+              <h2 className="text-xl mb-8">Dados de Entrega</h2>
               <div className="flex flex-col gap-6 text-sm">
-                {/* NAME */}
                 <input
                   type="text"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
-                  placeholder="Nombre Completo"
+                  placeholder="Nome Completo"
                   value={fields.name}
-                  onChange={(e) =>
-                    setFields({ ...fields, name: e.target.value })
-                  }
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  onBlur={() => handleBlur("name")}
                 />
+                {errors.name && (
+                  <span className="text-red-500">{errors.name}</span>
+                )}
 
-                {/* PHONE */}
                 <input
                   type="tel"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
-                  placeholder="Teléfono (WhatsApp)"
+                  placeholder="Telefone (WhatsApp)"
                   value={fields.phone}
-                  onChange={(e) =>
-                    setFields({ ...fields, phone: e.target.value })
-                  }
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                  onBlur={() => handleBlur("phone")}
                 />
+                {errors.phone && (
+                  <span className="text-red-500">{errors.phone}</span>
+                )}
 
-                {/* ADRESS */}
                 <input
                   type="text"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2 "
-                  placeholder="Dirección"
+                  placeholder="Endereço"
                   value={fields.adress}
-                  onChange={(e) =>
-                    setFields({ ...fields, adress: e.target.value })
-                  }
+                  onChange={(e) => handleChange("adress", e.target.value)}
+                  onBlur={() => handleBlur("adress")}
                 />
+                {errors.adress && (
+                  <span className="text-red-500">{errors.adress}</span>
+                )}
               </div>
 
-              <div className="mt-8 flex justify-between items-end text-sm">
+              <div className="mt-8 flex justify-between items-end">
                 <p>Valor Total: $ {total.toFixed(2)}</p>
-                <button className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-200 hover:bg-slate-900">
+                <button
+                  className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-300 hover:bg-slate-200 hover:text-slate-950 font-semibold hover:scale-90 text-sm"
+                  onClick={handleWhatsappOrderApp}
+                >
                   Finalizar Pedido
                 </button>
               </div>
