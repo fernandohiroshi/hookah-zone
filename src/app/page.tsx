@@ -99,10 +99,10 @@ export default function Home() {
     <>
       {/* HEADER */}
       <header className="sticky top-0 bg-slate-950/5 backdrop-blur-2xl z-50">
-        <div className="max-w-4xl mx-auto flex justify-between px-4 py-6 ">
+        <div className="max-w-4xl mx-auto flex justify-between px-4 py-6 items-center">
           <Link
             href="#"
-            className="text-lg hover:text-cyan-500 ease-in-out duration-300"
+            className="text-sm md:text-lg hover:text-cyan-500 ease-in-out duration-300"
           >
             HOKKAH ZONE
           </Link>
@@ -119,7 +119,7 @@ export default function Home() {
       </header>
 
       {/* MAIN */}
-      <main className="max-w-4xl mx-auto w-full min-h-screen">
+      <main className="max-w-4xl mx-auto w-full min-h-screen text-xs md:text-sm">
         {/* HERO */}
         <Hero />
 

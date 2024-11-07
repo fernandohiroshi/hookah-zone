@@ -141,17 +141,17 @@ function CartItems() {
                 key={item.id}
                 className="border-b border-slate-50/20 flex justify-between items-end p-4 hover:bg-slate-50/10"
               >
-                <section className="flex gap-8">
-                  <div className="max-w-[6rem] max-h-[6rem]">
+                <section className="flex gap-3">
+                  <div className="min-w-[4rem] max-w-[4rem] min-h-[4rem] max-h-[4rem]">
                     <Image
                       src={item.image}
                       alt={item.name}
-                      width={500}
-                      height={500}
-                      className="h-full object-cover object-center w-full rounded"
+                      width={300}
+                      height={300}
+                      className="object-cover object-center h-full w-full rounded"
                     />
                   </div>
-                  <div className="flex flex-col justify-around">
+                  <div className="flex flex-col justify-around text-xs">
                     <span>
                       {item.name} (Cant:{" "}
                       <span className="text-pink-400">{item.quantity}</span>)
@@ -168,13 +168,13 @@ function CartItems() {
                     className="text-teal-400"
                     onClick={() => handleIncrement(item.id)}
                   >
-                    <CiSquarePlus size={30} />
+                    <CiSquarePlus size={24} />
                   </button>
                   <button
                     className="text-rose-400"
                     onClick={() => handleDecrement(item.id)}
                   >
-                    <CiSquareMinus size={30} />
+                    <CiSquareMinus size={24} />
                   </button>
                 </div>
               </div>
@@ -182,7 +182,7 @@ function CartItems() {
 
             <section className="my-16 bg-slate-800 rounded-xl p-4">
               <h2 className="text-xl mb-8">Dados de Entrega</h2>
-              <div className="flex flex-col gap-6 text-sm">
+              <div className="flex flex-col gap-6 text-xs md:text-sm">
                 <input
                   type="text"
                   className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
@@ -220,13 +220,13 @@ function CartItems() {
                 )}
               </div>
 
-              <div className="mt-8 flex justify-between items-end">
+              <div className="mt-8 flex justify-between items-end text-xs md:text-sm">
                 <p>Valor Total: $ {total.toFixed(2)}</p>
                 <button
-                  className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-300 hover:bg-slate-200 hover:text-slate-950 font-semibold hover:scale-90 text-sm"
+                  className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-300 hover:bg-slate-200 hover:text-slate-950 font-semibold hover:scale-90"
                   onClick={handleWhatsappOrderApp}
                 >
-                  Finalizar Pedido
+                  Solicitar
                 </button>
               </div>
             </section>
