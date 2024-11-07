@@ -25,7 +25,7 @@ const dataProducts: Product[] = [
   {
     id: 3,
     name: "Ziggy - Watermelon Bomb",
-    price: 9.0,
+    price: 9.5,
     group: "essencias",
     image:
       "https://cdn.awsli.com.br/2500x2500/1798/1798617/produto/220193495/essencia_ziggy_m-yerym8u48x.jpg",

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
-const j = JetBrains_Mono({ subsets: ["latin"] });
+const m = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Hokkah Zone",
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es-AR">
-      <body className={`${j.className} antialiased`}>{children}</body>
+      <body className={`${m.className} antialiased`}>{children}</body>
     </html>
   );
 }
