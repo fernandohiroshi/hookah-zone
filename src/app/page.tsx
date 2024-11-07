@@ -4,10 +4,11 @@ import Hero from "@/components/Hero";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiLogoInstagram, BiLogoWhatsapp } from "react-icons/bi";
-import dataProducts from "./api/page";
+
 import CartButton from "@/components/CartButton";
 import ProductItems from "@/components/ProductItems";
 import { toast } from "react-hot-toast";
+import dataProducts from "./pages/api/page";
 
 interface Product {
   id: number;
