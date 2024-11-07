@@ -8,7 +8,7 @@ import { BiLogoInstagram, BiLogoWhatsapp } from "react-icons/bi";
 import CartButton from "@/components/CartButton";
 import ProductItems from "@/components/ProductItems";
 import { toast } from "react-hot-toast";
-import dataProducts from "./pages/api/page";
+import { dataProducts } from "./api/datas";
 
 interface Product {
   id: number;

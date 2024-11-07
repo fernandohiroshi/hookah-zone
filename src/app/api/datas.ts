@@ -6,7 +6,7 @@ interface Product {
   image: string;
 }
 
-const dataProducts: Product[] = [
+export const dataProducts: Product[] = [
   {
     id: 1,
     name: "Narguile Triton",
@@ -185,4 +185,3 @@ const dataProducts: Product[] = [
   },
 ];
 
-export default dataProducts;
