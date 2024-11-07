@@ -9,6 +9,7 @@ import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 function CartItems() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cart, setCart] = useState<any[]>([]);
+  const [total, setTotal] = useState(0);
   const [fields, setFields] = useState({
     name: "",
     phone: "",
@@ -21,6 +22,37 @@ function CartItems() {
       setCart(JSON.parse(storageCart));
     }
   }, []);
+
+  useEffect(() => {
+    const newTotal = cart.reduce(
+      (c, item) => c + item.price * item.quantity,
+      0
+    );
+    setTotal(newTotal);
+  }, [cart]);
+
+  const handleIncrement = (id: number) => {
+    const updateCart = cart.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCart(updateCart);
+    localStorage.setItem("cart", JSON.stringify(updateCart));
+  };
+
+  const handleDecrement = (id: number) => {
+    const existingProduct = cart.find((item) => item.id === id);
+    if (existingProduct && existingProduct.quantity > 1) {
+      const updateCart = cart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      );
+      setCart(updateCart);
+      localStorage.setItem("cart", JSON.stringify(updateCart));
+    } else if (existingProduct && existingProduct.quantity === 1) {
+      const updateCart = cart.filter((item) => item.id !== id);
+      setCart(updateCart);
+      localStorage.setItem("cart", JSON.stringify(updateCart));
+    }
+  };
 
   return (
     <section className="max-w-4xl mx-auto w-full px-4">
@@ -62,10 +94,16 @@ function CartItems() {
                 {/* QUANTITY BUTTONS */}
 
                 <div className="flex items-center gap-2">
-                  <button className="text-teal-400">
+                  <button
+                    className="text-teal-400"
+                    onClick={() => handleIncrement(item.id)}
+                  >
                     <CiSquarePlus size={30} />
                   </button>
-                  <button className="text-rose-400">
+                  <button
+                    className="text-rose-400"
+                    onClick={() => handleDecrement(item.id)}
+                  >
                     <CiSquareMinus size={30} />
                   </button>
                 </div>
@@ -111,7 +149,7 @@ function CartItems() {
               </div>
 
               <div className="mt-8 flex justify-between items-end text-sm">
-                <p>Valor Total: $ 500.00</p>
+                <p>Valor Total: $ {total.toFixed(2)}</p>
                 <button className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-200 hover:bg-slate-900">
                   Finalizar Pedido
                 </button>
