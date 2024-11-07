@@ -99,7 +99,10 @@ export default function Home() {
       {/* HEADER */}
       <header className="sticky top-0 bg-slate-950/5 backdrop-blur-2xl z-50">
         <div className="max-w-4xl mx-auto flex justify-between px-4 py-6 ">
-          <Link href="#" className="text-lg">
+          <Link
+            href="#"
+            className="text-lg hover:text-cyan-500 ease-in-out duration-300"
+          >
             HOKKAH ZONE
           </Link>
           <div className="flex items-center gap-4">

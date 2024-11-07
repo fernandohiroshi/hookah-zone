@@ -8,6 +8,7 @@ import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 
 function CartItems() {
   // STATE HOOKS FOR CART, TOTAL, FORM FIELDS, AND ERRORS
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cart, setCart] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [fields, setFields] = useState({

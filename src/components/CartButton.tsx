@@ -9,7 +9,7 @@ const CartButton = ({ itemCount }: ItemCountProps) => {
   return (
     <Link
       href="/cart"
-      className="flex items-start hover:text-cyan-500 ease-in-out duration-500"
+      className="flex items-start hover:text-cyan-500 ease-in-out duration-300"
     >
       <GiShoppingCart size={24} />
       <span className="text-xs">{itemCount}</span>
