@@ -151,7 +151,7 @@ function CartItems() {
                       className="object-cover object-center h-full w-full rounded"
                     />
                   </div>
-                  <div className="flex flex-col justify-around text-xs">
+                  <div className="flex flex-col justify-around text-xs md:text-sm">
                     <span>
                       {item.name} (Cant:{" "}
                       <span className="text-pink-400">{item.quantity}</span>)

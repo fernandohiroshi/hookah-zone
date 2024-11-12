@@ -6,7 +6,7 @@ import "./globals.css";
 const m = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hokkah Zone",
+  title: "Hookah Zone",
   description: "Tabaquería y productos de narguile",
 };
 
@@ -16,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es-AR">
+    <html lang="pt-BR">
       <body className={`${m.className} antialiased`}>
-        <Toaster position="top-right" reverseOrder={false} />
+        <Toaster position="top-left" reverseOrder={false} />
         {children}
       </body>
     </html>

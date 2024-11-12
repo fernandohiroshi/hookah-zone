@@ -31,12 +31,15 @@ export default function Home() {
   useEffect(() => {
     // SPECIFIC ORDER OF GROUPS
     const groupOrder = [
-      "hookah",
-      "accessories",
+      "narguile",
+      "stem",
+      "rosh",
+      "vaso",
+      "mangueira",
+      "acessorio",
       "essencias",
       "carvao",
       "heads",
-      "bebidas",
     ];
 
     // SORT PRODUCTS FIRST BY GROUP AND THEN BY NAME
@@ -140,14 +143,17 @@ export default function Home() {
           <div className="mb-6">
             <h4 className="text-lg mb-2">Filtrar por Categoría:</h4>
 
-            <div className="grid grid-cols-3 gap-2 md:grid-cols-3">
+            <div className="grid grid-cols-3 gap-2 md:grid-cols-5">
               {[
-                "hookah",
-                "accessories",
+                "narguile",
+                "stem",
+                "rosh",
+                "vaso",
+                "mangueira",
+                "acessorio",
                 "essencias",
                 "carvao",
                 "heads",
-                "bebidas",
               ].map((group) => (
                 <label key={group} className="flex items-center gap-2">
                   <input
