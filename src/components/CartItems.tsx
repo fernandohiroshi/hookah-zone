@@ -7,15 +7,22 @@ import { BsCartX } from "react-icons/bs";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 
 function CartItems() {
+  // State to store the cart items (initially empty array)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cart, setCart] = useState<any[]>([]);
+
+  // State to store the total price of the cart
   const [total, setTotal] = useState(0);
+
+  // State to store the input fields for delivery data
   const [fields, setFields] = useState({
     name: "",
     phone: "",
     address: "",
     country: "",
   });
+
+  // State to store validation errors for delivery fields
   const [errors, setErrors] = useState({
     name: "",
     phone: "",
@@ -23,6 +30,7 @@ function CartItems() {
     country: "",
   });
 
+  // Load the cart from local storage when the component is mounted
   useEffect(() => {
     const storageCart = localStorage.getItem("cart");
     if (storageCart) {
@@ -30,6 +38,7 @@ function CartItems() {
     }
   }, []);
 
+  // Calculate the total price whenever the cart changes
   useEffect(() => {
     const newTotal = cart.reduce(
       (c, item) => c + item.price * item.quantity,
@@ -38,6 +47,7 @@ function CartItems() {
     setTotal(newTotal);
   }, [cart]);
 
+  // Handle incrementing the quantity of an item in the cart
   const handleIncrement = (id: number) => {
     const updateCart = cart.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
@@ -46,6 +56,7 @@ function CartItems() {
     localStorage.setItem("cart", JSON.stringify(updateCart));
   };
 
+  // Handle decrementing the quantity of an item in the cart
   const handleDecrement = (id: number) => {
     const existingProduct = cart.find((item) => item.id === id);
     if (existingProduct && existingProduct.quantity > 1) {
@@ -61,6 +72,7 @@ function CartItems() {
     }
   };
 
+  // Validate the fields when the user interacts with them
   const validateFields = (
     field: "name" | "phone" | "address" | "country",
     value: string
@@ -82,6 +94,7 @@ function CartItems() {
     }
   };
 
+  // Update the field value and check for validation errors
   const handleChange = (
     field: "name" | "phone" | "address" | "country",
     value: string
@@ -90,10 +103,12 @@ function CartItems() {
     setErrors({ ...errors, [field]: validateFields(field, value) });
   };
 
+  // Validate the field when the user leaves the input field
   const handleBlur = (field: "name" | "phone" | "address" | "country") => {
     setErrors({ ...errors, [field]: validateFields(field, fields[field]) });
   };
 
+  // Handle sending the order details via WhatsApp when the user clicks "Enviar Pedido"
   const handleWhatsappOrderApp = () => {
     const newErrors = {
       name: validateFields("name", fields.name),
@@ -104,11 +119,13 @@ function CartItems() {
 
     setErrors(newErrors);
 
+    // If there are any validation errors, display an error message and stop the process
     if (Object.values(newErrors).some((error) => error)) {
       toast.error("Por favor, preencha todos os dados corretamente.");
       return;
     }
 
+    // Create the message with order details and customer information
     const orderMsg = cart
       .map((item) => `${item.quantity} ${item.name},`)
       .join("\n");
@@ -116,8 +133,9 @@ function CartItems() {
 
     const customerMsg = `Pedidos de ${
       fields.name
-    }:\n\n${orderMsg}\n\nValor Total: $${total.toFixed(2)}\n\n${fieldsMsg}`;
+    }:\n\n${orderMsg}\n\nValor Total: R$${total.toFixed(2)}\n\n${fieldsMsg}`;
 
+    // Redirect the user to WhatsApp with the order details
     const whatsappUrl = `https://wa.me/45988311915?text=${encodeURIComponent(
       customerMsg
     )}`;
@@ -151,11 +169,11 @@ function CartItems() {
                   </div>
                   <div className="flex flex-col justify-around text-xs md:text-sm">
                     <span>
-                      {item.name} (Quant:{" "}
+                      {item.name} (Quantidade:{" "}
                       <span className="text-pink-400">{item.quantity}</span>)
                     </span>
                     <span className="text-pink-400">
-                      <span className="text-slate-50"> Preço:</span> $
+                      <span className="text-slate-50"> Preço:</span> R${" "}
                       {item.price * item.quantity}
                     </span>
                   </div>
@@ -166,13 +184,13 @@ function CartItems() {
                     className="text-teal-400"
                     onClick={() => handleIncrement(item.id)}
                   >
-                    <CiSquarePlus size={24} />
+                    <CiSquarePlus size={28} />
                   </button>
                   <button
                     className="text-rose-400"
                     onClick={() => handleDecrement(item.id)}
                   >
-                    <CiSquareMinus size={24} />
+                    <CiSquareMinus size={28} />
                   </button>
                 </div>
               </div>
@@ -219,7 +237,7 @@ function CartItems() {
 
                 <input
                   type="text"
-                  className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2 "
+                  className="py-2 rounded-sm bg-slate-50/10 hover:bg-slate-50/20 outline-none px-2"
                   placeholder="País"
                   value={fields.country}
                   onChange={(e) => handleChange("country", e.target.value)}
@@ -228,16 +246,21 @@ function CartItems() {
                 {errors.country && (
                   <span className="text-red-500">{errors.country}</span>
                 )}
-              </div>
 
-              <div className="mt-8 flex justify-between items-end text-xs md:text-sm">
-                <p>Valor Total: $ {total.toFixed(2)}</p>
-                <button
-                  className="bg-slate-950 px-3 py-2 rounded-xl shadow shadow-slate-50/40 ease-in-out duration-300 hover:bg-slate-200 hover:text-slate-950 font-semibold hover:scale-90"
-                  onClick={handleWhatsappOrderApp}
-                >
-                  Enviar Pedido
-                </button>
+                <div className="flex justify-between items-center gap-6 text-xs md:text-xl">
+                  <div className="flex gap-1 items-center">
+                    <span>Total:</span>
+                    <span className="font-semibold text-pink-400">
+                      R$ {total}
+                    </span>
+                  </div>
+                  <button
+                    className="text-pink-400 border border-pink-400 py-2 px-6 rounded-full hover:bg-pink-400 hover:text-slate-50 transition-all"
+                    onClick={handleWhatsappOrderApp}
+                  >
+                    Solicitar
+                  </button>
+                </div>
               </div>
             </section>
           </div>

@@ -9,6 +9,7 @@ import CartButton from "@/components/CartButton";
 import ProductItems from "@/components/ProductItems";
 import { toast } from "react-hot-toast";
 import { dataProducts } from "@/api/datas";
+import Footer from "@/components/Footer";
 
 interface Product {
   id: number;
@@ -197,6 +198,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <Footer />
       </main>
     </>
   );

@@ -26,7 +26,7 @@ function ProductItems({
 }: ProductItemsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Função para abrir e fechar o modal
+  // Function to open and close the modal
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -55,7 +55,7 @@ function ProductItems({
         </div>
         <h4 className="text-xs lg:text-sm mt-2">{name}</h4>
         <div className="flex justify-between items-end h-full">
-          <span>$ {price.toFixed(2)}</span>
+          <span>R$ {price.toFixed(2)}</span>
           <button
             onClick={() => addToCart(id)}
             className="bg-cyan-800 px-2 py-1 rounded-sm hover:bg-cyan-500 ease-in-out duration-500"
@@ -65,11 +65,11 @@ function ProductItems({
         </div>
       </motion.div>
 
-      {/* Modal para mostrar a imagem ampliada */}
+      {/* Modal to display the enlarged image */}
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-          onClick={toggleModal} // Fecha o modal ao clicar fora da imagem
+          onClick={toggleModal} // Close the modal when clicking outside the image
         >
           <div className="relative m-4">
             <Image
