@@ -10,14 +10,14 @@ export default function Cart() {
         <div className="max-w-4xl mx-auto flex justify-between items-end px-4 py-8">
           <Link
             href="/"
-            title="volver al inicio"
+            title="Voltar"
             className="text-xl flex items-center gap-2 hover:text-cyan-500 ease-in-out duration-500"
           >
             <BiSolidLeftArrowCircle size={24} className="animate-pulse" />
-            Volver
+            Voltar
           </Link>
 
-          <h1 className="text-xl font-light">Mis pedidos</h1>
+          <h1 className="text-xl font-light">Meus pedidos</h1>
         </div>
       </header>
       <CartItems />
