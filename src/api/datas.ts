@@ -43,7 +43,7 @@ export const dataProducts: Product[] = [
     id: 5,
     name: "Garfo e Furador Seven",
     price: 8.0,
-    group: "acessorio",
+    group: "acessorios",
     image:
       "https://galeradonarguile.com.br/media/catalog/product/cache/28b2aad050427587f488ae01203c2bb7/g/a/garfo_e_furador_seven_azul_bb_modelo_novo.webp",
   },

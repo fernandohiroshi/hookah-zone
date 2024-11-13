@@ -17,9 +17,6 @@ function Hero() {
           <h2 className="text-lg md:text-4xl mb-2 animate-pulse">
             Tabacaria e produtos de narguile
           </h2>
-          <p className="text-xs md:text-sm">
-            Qualquer dúvida, entre em contato pelo WhatsApp
-          </p>
         </div>
       </div>
     </section>
